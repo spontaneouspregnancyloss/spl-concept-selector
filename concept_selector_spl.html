@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Still Carried - Concept Selector</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; }
+    .category { margin-bottom: 20px; }
+    .category h2 { font-size: 1.2em; margin-bottom: 10px; }
+    .button-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .concept-btn { padding: 10px; background: #e0e0e0; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    .concept-btn:hover { background: #c0c0c0; }
+    #selection { margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 10px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>"Still Carried" - Choose Your Story Path</h1>
+
+    <div class="category">
+      <h2>Age & Life Stage</h2>
+      <div class="button-grid">
+        <button class="concept-btn" onclick="selectConcept('Underage Pregnancy Loss')">Underage Pregnancy Loss</button>
+        <button class="concept-btn" onclick="selectConcept('Prime Reproductive Age Loss')">Prime Reproductive Age Loss</button>
+        <button class="concept-btn" onclick="selectConcept('Infertility Struggles')">Infertility Struggles</button>
+        <button class="concept-btn" onclick="selectConcept('Late Maternal Age Loss')">Late Maternal Age Loss</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Relationship Dynamics</h2>
+      <div class="button-grid">
+        <button class="concept-btn" onclick="selectConcept('Loss in Silence (Single Parent)')">Loss in Silence (Single Parent)</button>
+        <button class="concept-btn" onclick="selectConcept('Couple's Shared Grief')">Couple's Shared Grief</button>
+        <button class="concept-btn" onclick="selectConcept('Surrogacy Pregnancy Loss')">Surrogacy Pregnancy Loss</button>
+        <button class="concept-btn" onclick="selectConcept('Partner Perspective')">Partner Perspective</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Medical & Systemic Neglect</h2>
+      <div class="button-grid">
+        <button class="concept-btn" onclick="selectConcept('Misdiagnosed or Ignored Loss')">Misdiagnosed or Ignored Loss</button>
+        <button class="concept-btn" onclick="selectConcept('No Emergency Response (Parking Lot Loss)')">No Emergency Response</button>
+        <button class="concept-btn" onclick="selectConcept('Forced to Carry a Non-Viable Pregnancy')">Forced to Carry a Non-Viable Pregnancy</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Emotional & Psychological Layers</h2>
+      <div class="button-grid">
+        <button class="concept-btn" onclick="selectConcept('Carrying in Silence (Cultural Taboos)')">Carrying in Silence (Cultural Taboos)</button>
+        <button class="concept-btn" onclick="selectConcept('Shame vs. Resilience')">Shame vs. Resilience</button>
+        <button class="concept-btn" onclick="selectConcept('Body Betrayal Narrative')">Body Betrayal Narrative</button>
+        <button class="concept-btn" onclick="selectConcept('Loss of Future Identity')">Loss of Future Identity</button>
+      </div>
+    </div>
+
+    <div id="selection">
+      <h2>You Selected:</h2>
+      <p id="chosenConcept"></p>
+      <p>Get started by sharing your story or writing your own version of "Still Carried" based on this theme.</p>
+      <a href="https://docs.google.com/forms/d/e/your-form-link-here/viewform" target="_blank">Submit Your Story</a>
+    </div>
+  </div>
+
+  <script>
+    function selectConcept(concept) {
+      document.getElementById('selection').style.display = 'block';
+      document.getElementById('chosenConcept').innerText = concept;
+    }
+  </script>
+</body>
+</html>
