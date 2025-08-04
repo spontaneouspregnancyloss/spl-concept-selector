@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPL Concept Selector</title>
+    <title>SPL Project - Concept Selector</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
             text-align: center;
+            padding: 20px;
         }
         h1 {
             color: #333;
@@ -18,71 +17,129 @@
         .category {
             margin: 20px 0;
         }
-        .button {
-            background-color: #ff6f61;
-            color: white;
-            padding: 10px 20px;
+        .option {
+            display: inline-block;
             margin: 10px;
-            border: none;
-            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .button:hover {
-            background-color: #ff4a3c;
+        .option:hover {
+            background-color: #d0d0d0;
         }
         .form-link {
             display: none;
             margin-top: 30px;
         }
-        .form-link a {
-            color: #007bff;
+        a.button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
             text-decoration: none;
+            border-radius: 8px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
             font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Still Carried: Concept Selector</h1>
+    <h1>Breaking the Silence: Choose Your Story Path</h1>
 
     <div class="category">
-        <h2>Age</h2>
-        <button class="button" onclick="selectConcept('Underaged Pregnancy Loss')">Underaged Pregnancy Loss</button>
-        <button class="button" onclick="selectConcept('Prime Reproductive Age Loss')">Prime Reproductive Age Loss</button>
-        <button class="button" onclick="selectConcept('Later-in-Life Loss')">Later-in-Life Loss</button>
+        <h3>Select Age Group</h3>
+        <div class="option" onclick="selectOption('Underage Pregnancy')">Underage Pregnancy</div>
+        <div class="option" onclick="selectOption('Prime Reproductive Age')">Prime Reproductive Age</div>
+        <div class="option" onclick="selectOption('Advanced Maternal Age')">Advanced Maternal Age</div>
     </div>
 
     <div class="category">
-        <h2>Relationship Dynamics</h2>
-        <button class="button" onclick="selectConcept('Solo Journey')">Solo Journey</button>
-        <button class="button" onclick="selectConcept('Couple’s Shared Loss')">Couple’s Shared Loss</button>
-        <button class="button" onclick="selectConcept('Family Influence & Silence')">Family Influence & Silence</button>
+        <h3>Select Relationship Dynamic</h3>
+        <div class="option" onclick="selectOption('Single Mother')">Single Mother</div>
+        <div class="option" onclick="selectOption('Couple Trying to Conceive')">Couple Trying to Conceive</div>
+        <div class="option" onclick="selectOption('Surrogacy Experience')">Surrogacy Experience</div>
     </div>
 
     <div class="category">
-        <h2>Medical Neglect / Systemic Failure</h2>
-        <button class="button" onclick="selectConcept('ER Trauma / Dismissal')">ER Trauma / Dismissal</button>
-        <button class="button" onclick="selectConcept('Insurance Barriers & Delays')">Insurance Barriers & Delays</button>
-    </div>
-
-    <div class="category">
-        <h2>Emotional Layers</h2>
-        <button class="button" onclick="selectConcept('Unspoken Grief')">Unspoken Grief</button>
-        <button class="button" onclick="selectConcept('Shame & Stigma')">Shame & Stigma</button>
-        <button class="button" onclick="selectConcept('Breaking Generational Silence')">Breaking Generational Silence</button>
+        <h3>Select Emotional Layer</h3>
+        <div class="option" onclick="selectOption('Medical Neglect')">Medical Neglect</div>
+        <div class="option" onclick="selectOption('Family Silence')">Family Silence</div>
+        <div class="option" onclick="selectOption('Cultural Shame')">Cultural Shame</div>
     </div>
 
     <div class="form-link" id="formLink">
         <h3>You selected: <span id="selectedConcept"></span></h3>
         <p>Start writing your story for "Still Carried." Submit it here:</p>
-        <a href="https://forms.gle/PVexhBjDDaE5CcCn7" target="_blank">Submit My Story</a>
+        <a id="submitButton" class="button" target="_blank">Submit My Story</a>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>You're Ready!</h2>
+            <p>Thank you for selecting a concept. You can now click "Submit My Story" to share your experience.</p>
+        </div>
     </div>
 
     <script>
-        function selectConcept(concept) {
-            document.getElementById('selectedConcept').innerText = concept;
-            document.getElementById('formLink').style.display = 'block';
+        let selectedOptions = [];
+
+        function selectOption(option) {
+            if (!selectedOptions.includes(option)) {
+                selectedOptions.push(option);
+            }
+            document.getElementById("selectedConcept").textContent = selectedOptions.join(" + ");
+            document.getElementById("formLink").style.display = "block";
+            showModal();
+
+            // Auto-fill link with pre-selected concept
+            const baseFormURL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?usp=pp_url&entry.YOUR_ENTRY_ID=";
+            const autofillConcept = encodeURIComponent(selectedOptions.join(", "));
+            document.getElementById("submitButton").href = baseFormURL + autofillConcept;
+        }
+
+        function showModal() {
+            const modal = document.getElementById("confirmationModal");
+            modal.style.display = "block";
+
+            document.querySelector(".close-button").onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         }
     </script>
-
 </body>
 </html>
