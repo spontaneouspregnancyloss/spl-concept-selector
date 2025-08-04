@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPL Concept Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .category {
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #ff4a3c;
+        }
+        .form-link {
+            display: none;
+            margin-top: 30px;
+        }
+        .form-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Still Carried: Concept Selector</h1>
+
+    <div class="category">
+        <h2>Age</h2>
+        <button class="button" onclick="selectConcept('Underaged Pregnancy Loss')">Underaged Pregnancy Loss</button>
+        <button class="button" onclick="selectConcept('Prime Reproductive Age Loss')">Prime Reproductive Age Loss</button>
+        <button class="button" onclick="selectConcept('Later-in-Life Loss')">Later-in-Life Loss</button>
+    </div>
+
+    <div class="category">
+        <h2>Relationship Dynamics</h2>
+        <button class="button" onclick="selectConcept('Solo Journey')">Solo Journey</button>
+        <button class="button" onclick="selectConcept('Couple’s Shared Loss')">Couple’s Shared Loss</button>
+        <button class="button" onclick="selectConcept('Family Influence & Silence')">Family Influence & Silence</button>
+    </div>
+
+    <div class="category">
+        <h2>Medical Neglect / Systemic Failure</h2>
+        <button class="button" onclick="selectConcept('ER Trauma / Dismissal')">ER Trauma / Dismissal</button>
+        <button class="button" onclick="selectConcept('Insurance Barriers & Delays')">Insurance Barriers & Delays</button>
+    </div>
+
+    <div class="category">
+        <h2>Emotional Layers</h2>
+        <button class="button" onclick="selectConcept('Unspoken Grief')">Unspoken Grief</button>
+        <button class="button" onclick="selectConcept('Shame & Stigma')">Shame & Stigma</button>
+        <button class="button" onclick="selectConcept('Breaking Generational Silence')">Breaking Generational Silence</button>
+    </div>
+
+    <div class="form-link" id="formLink">
+        <h3>You selected: <span id="selectedConcept"></span></h3>
+        <p>Start writing your story for "Still Carried." Submit it here:</p>
+        <a href="YOUR-GOOGLE-FORM-LINK" target="_blank">Submit My Story</a>
+    </div>
+
+    <script>
+        function selectConcept(concept) {
+            document.getElementById('selectedConcept').innerText = concept;
+            document.getElementById('formLink').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
